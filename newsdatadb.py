@@ -57,3 +57,8 @@ def get_days_with_bad_requests():
         date = str(r[0])
         fmt_date = datetime.strptime(date, "%Y-%m-%d").strftime("%B %d,%Y")
         print fmt_date + " -- " + str(r[1]) + "% errors"
+
+if __name__ == '__main__':
+    get_top3_viewed_articles()
+    get_most_popular_authors()
+    get_days_with_bad_requests()

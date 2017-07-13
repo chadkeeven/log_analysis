@@ -17,8 +17,8 @@ Reads data on a linux vm. Uses `run_query(query)` to fetch query results for `ge
 6. Run command `python newsdatadb.py`
 
 ### Views 
-- all_requests = SELECT date_trunc('day'::text, log."time") AS day,count(*) AS num FROM log GROUP BY (date_trunc('day'::text, log."time"));
+CREATE VIEW all_requests AS SELECT date_trunc('day'::text, log."time") AS day,count(*) AS num FROM log GROUP BY (date_trunc('day'::text, log."time"));
 
-- bad_requests =  SELECT date_trunc('day'::text, log."time") AS day,  count(*) AS num FROM log WHERE (log.status <> '200 OK'::text) GROUP BY (date_trunc('day'::text, log."time"));
+CREATE VIEW bad_requests AS SELECT date_trunc('day'::text, log."time") AS day,  count(*) AS num FROM log WHERE (log.status <> '200 OK'::text) GROUP BY (date_trunc('day'::text, log."time"));
 
-- bad_percent_v2 =  SELECT all_requests.day, round(((((bad_requests.num)::double precision / (all_requests.num)::double precision) * (100)::double precision))::numeric, 1) AS percent FROM all_requests, bad_requests WHERE (all_requests.day = bad_requests.day);
+CREATE VIEW bad_percent_v2 AS SELECT all_requests.day, round(((((bad_requests.num)::double precision / (all_requests.num)::double precision) * (100)::double precision))::numeric, 1) AS percent FROM all_requests, bad_requests WHERE (all_requests.day = bad_requests.day);
